@@ -1,0 +1,35 @@
+<!-- เนื่องจาก free API key สามารถรับข้อมูลได้เฉพาะ ค่าเงิน EUR เท่านั้น จึงทำเป็นเฉพาะแปลงค่าเงินจาก EUR เป็นค่าอื่น -->
+
+<div class="container">
+    <div class="header">
+        <h2>EUR Currency converter</h2>
+    </div>
+    <form [formGroup]="form">
+        <div>
+            <div class="amount">Amount :</div>
+            <div><input formControlName="amount" placeholder="Input amount in numbers">
+            </div>
+            <span style="color: red;" *ngIf="isAmountValid">Please fill the amount to convert</span>
+            <!-- <span style="color: red;" *ngIf="isAmountNumber">Amount must be number</span> -->
+        </div>
+        <div>
+            <div class="convert-to">Convert to :</div>
+            <div>
+                <select formControlName="convertTo">
+                    <option [ngValue]="null" disabled>Choose currency</option>
+                    <option *ngFor="let c of currenciesCode" [ngValue]="c.AlphabeticCode">
+                        {{c.AlphabeticCode}}
+                    </option>
+                </select>
+            </div>
+            <span style="color: red;" *ngIf="isCodeSelected">Please Select Currency</span>
+            <button (click)="onClick()">convert</button>
+        </div>
+
+    </form>
+    <div class="converted-amount">
+        <h4>{{this.form.get('amount').value}} EUR is</h4> <span *ngIf="this.form.valid">{{converted}}</span>
+        <h4>{{this.form.get('convertTo').value}}</h4>
+    </div>
+
+</div>
